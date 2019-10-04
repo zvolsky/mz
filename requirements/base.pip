@@ -1,0 +1,6 @@
+psycopg2
+django
+django-cities
+django-countries
+django-environ
+django-admin-tools

@@ -1,0 +1,15 @@
+/etc/postgresql/11/main/pg_hba.conf (+ pg_ctlcluster 11 main restart)
+  local mz mz md5  # .. DB USER ..
+  local all all peer
+su - postgres ; psql
+create role <debian_user> login createdb createrole;
+exit  # su/postgres -> <debian_user>
+psql -d postgres
+create role mz login;
+alter role mz password 'heslo-v-secret.py';
+alter role mz set client_encoding to 'utf8';
+alter role mz set default_transaction_isolation to 'read committed';
+alter role mz set timezone to 'UTC';
+create database mz;   # if err "template1 accessed" -> např. v PgAdmin refresh na Databáze(nnn)
+grant all privileges on database mz to mz;
+create extension postgis;  # v mz databázi
