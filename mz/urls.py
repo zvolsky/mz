@@ -14,8 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.conf.urls.i18n import i18n_patterns
+from django.urls import include, path
+
+from siteframe.views import TestSiteframeView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('testsiteframe/', TestSiteframeView.as_view()),
 ]
+
+urlpatterns += i18n_patterns(path('admin_tools/', include('admin_tools.urls')))

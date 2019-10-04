@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import os
+
 import environ   # django-environ !
 env = environ.Env()
 
@@ -28,6 +30,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_tools',
+    #'admin_tools.theming',
+    'admin_tools.menu',
+    #'admin_tools.dashboard',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,14 +64,21 @@ ROOT_URLCONF = 'mz.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        #'DIRS': [],
+        #'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'admin_tools.template_loaders.Loader',
             ],
         },
     },
@@ -140,3 +154,8 @@ if DEBUG_TOOLBAR:
         # 'SHOW_TOOLBAR_CALLBACK': False,
         'INTERCEPT_REDIRECTS': False,
     }
+
+# 3rd party
+
+# django-cities
+CITIES_POSTAL_CODES = []
