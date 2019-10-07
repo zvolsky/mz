@@ -22,6 +22,7 @@ from siteframe.views import TestSiteframeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('baton/', include('baton.urls')),
     path('testsiteframe/', TestSiteframeView.as_view()),
 ]
 
